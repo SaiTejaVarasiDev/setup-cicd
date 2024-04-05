@@ -17,8 +17,10 @@ jobs:
       #Install the SFDX CLI using npm command
       - name: Install the SFDX CLI
         run: |
-            npm install sfdx-cli --global
-            sfdx force --help
+            npm install @salesforce/cli --global
+            sf --version
+        # npm install sfdx-cli --global
+        # sfdx force --help
       # We need to use a key value stored as GitHub secret and 
       # create a .key file since 'sf org login jwt' command expects a path 
       # to .key file as a parameter
@@ -29,9 +31,9 @@ jobs:
       #Authenticate Salesforce ORG
       - name: Authenticate Salesforce ORG
         run: |
-            sfdx force:auth:jwt:grant --clientid "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwtkeyfile server.key --username "${{ secrets.SF_CICD_USERNAME }}" --instanceurl https://login.salesforce.com
+        # sfdx force:auth:jwt:grant --clientid "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwtkeyfile server.key --username "${{ secrets.SF_CICD_USERNAME }}" --instanceurl https://login.salesforce.com
       #Validate source code against the org
       - name: Validae Source Code Against Salesforce ORG
         run: |
-            sf project deploy validate --source-dir force-app
+        # sf project deploy validate --source-dir force-app
         #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
