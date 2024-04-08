@@ -36,7 +36,11 @@ jobs:
             sf org login jwt --client-id "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwt-key-file server.key --username "${{ secrets.SF_CICD_USERNAME }}" --alias my-hub-org 
         # sfdx force:auth:jwt:grant --clientid "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwtkeyfile server.key --username "${{ secrets.SF_CICD_USERNAME }}" --instanceurl https://login.salesforce.com
       #Validate source code against the org
+     - name: Print working directory
+       run: |
+            
       - name: Validae Source Code Against Salesforce ORG
         run: |
-            sf project deploy validate --source-dir force-app
+            sf deploy functions -o "${{ secrets.SF_CICD_USERNAME }}" --branch main_release
+        # sf project deploy validate --source-dir force-app
         #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
