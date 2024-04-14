@@ -43,7 +43,7 @@ jobs:
   #       #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
   get_runner:
     if: ${{ always()}}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, cicd-runner]
     outputs:
       RUNNER: ${{ runner.name }}
     steps:
