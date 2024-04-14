@@ -4,7 +4,7 @@ public class testClass {
     static void makeData(){
         List<Account> accList = new List<Account>();
         for(Integer i=0;i<10;i++){
-            Account acc = new Account(Name='Acc '+Stirng.valueOf(i));
+            Account acc = new Account(Name='Acc '+String.valueOf(i));
             accList.add(acc);
         }
         insert accList;
