@@ -50,7 +50,7 @@ jobs:
       - run: echo "selected runner = ${{ runner.name}}"
   Setup_Platform:
     needs: get_runner
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, Widows]
     # runs-on: ${{needs.get_runner.outputs.RUNNER}}
     steps:
       #Checkout the Source cod from the latest commit
@@ -58,13 +58,13 @@ jobs:
         with:
           fetch-depth: 0
       #We need to install NPM so that we can install SFDX CLI tools
-      # - name: Install NPM
-      #   run: |
-      #       npm install
-      - name: Install npm in linux
+      - name: Install NPM
         run: |
-            sudo apt install npm
-            curl -L https://npmjs.org/install.sh | sudo sh
+            npm install
+      # - name: Install npm in linux
+      #   run: |
+      #       sudo apt install npm
+      #       curl -L https://npmjs.org/install.sh | sudo sh
 
       #Install the SFDX CLI using npm command
       - name: Install the SFDX CLI
