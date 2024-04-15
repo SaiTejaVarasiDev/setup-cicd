@@ -50,7 +50,7 @@ jobs:
       - run: echo "selected runner = ${{ runner.name}}"
   Setup_Platform:
     needs: get_runner
-    runs-on: ${{needs.get_runner.outputs.RUNNER}}
+    runs-on: [self-hosted]
     steps:
       #Checkout the Source cod from the latest commit
       - uses: actions/checkout@v3
