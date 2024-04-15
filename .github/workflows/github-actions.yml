@@ -47,7 +47,7 @@ jobs:
     outputs:
       RUNNER: ${{ runner.name }}
     steps:
-      - run: echo "selected runner = ${{ runner.name}}"
+      - run: echo "selected runner =  ${{ runner.name}}"
   Setup_Platform:
     needs: get_runner
     runs-on: [self-hosted,Linux,X64,cicdpipelinerunner]
