@@ -43,14 +43,14 @@ jobs:
   #       #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
   get_runner:
     if: ${{ always()}}
-    runs-on: [self-hosted,cicdpipelinerunner]
+    runs-on: [self-hosted]
     outputs:
       RUNNER: ${{ runner.name }}
     steps:
       - run: echo "selected runner =  ${{ runner.name}}"
   Setup_Platform:
     needs: get_runner
-    runs-on: [self-hosted,cicdpipelinerunner]
+    runs-on: [self-hosted]
     # runs-on: ${{needs.get_runner.outputs.RUNNER}}
     steps:
       #Checkout the Source cod from the latest commit
