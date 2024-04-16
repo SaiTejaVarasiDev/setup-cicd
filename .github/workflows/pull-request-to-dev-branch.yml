@@ -1,9 +1,7 @@
-name: Push code from local repository to initial branch
-run-name: ${{ github.actor }} is performing the worflow 🚀
+name: Pull request from a branch to production
+run-name: ${{ github.actor }} is performing a pull request to Production branch
 on:
   pull_request:
-    types:
-      - opened
     branches:
       - production
   
@@ -15,6 +13,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: status
+        run: |
+          echo "${{ github.event.pull_request.merged }}"
       #We need to install NPM so that we can install SFDX CLI tools
       - name: Install NPM
         run: |
@@ -44,6 +45,6 @@ jobs:
       - name: Validae Source Code Against Salesforce ORG
         run: |
             sf project deploy validate -o "${{ secrets.SF_CICD_USERNAME }}" --source-dir force-app
-    #   - name: Deploy code 
-    #     run: |
-    #         sf project deploy quick --use-most-recent --target-org my-hub-org
+      # - name: Deploy code 
+      #   run: |
+      #       sf project deploy quick --use-most-recent --target-org my-hub-org
