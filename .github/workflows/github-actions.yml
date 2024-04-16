@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on: [pull_request, push]
   
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
         #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
       - name: Deploy code 
         run: |
-            sf project deploy quick --async --use-most-recent --target-org my-hub-org
+            sf project deploy quick --use-most-recent --target-org my-hub-org
 
   # get_runner:
   #   if: ${{ always()}}
