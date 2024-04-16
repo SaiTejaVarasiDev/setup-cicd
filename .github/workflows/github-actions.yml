@@ -1,49 +1,52 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [pull_request, push]
+# name: GitHub Actions Demo
+# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+# on:
+#   push:
+#     branches:
+#       - production
   
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      #Checkout the Source cod from the latest commit
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      #We need to install NPM so that we can install SFDX CLI tools
-      - name: Install NPM
-        run: |
-            npm install
-      #Install the SFDX CLI using npm command
-      - name: Install the SFDX CLI
-        run: |
-            npm install @salesforce/cli --global
-        # npm install sfdx-cli --global
-        # sfdx force --help
-      - name: sf version
-        run: |
-            sf --version
-      # We need to use a key value stored as GitHub secret and 
-      # create a .key file since 'sf org login jwt' command expects a path 
-      # to .key file as a parameter
-      - name: Create server key file
-        run: |
-            touch server.key
-            echo -e "${{ secrets.SF_CICD_SERVERKEY }}" >> server.key
-      #Authenticate Salesforce ORG
-      - name: Authenticate Salesforce ORG
-        run: |
-            sf org login jwt --client-id "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwt-key-file server.key --username "${{ secrets.SF_CICD_USERNAME }}" --alias my-hub-org 
-        # sfdx force:auth:jwt:grant --clientid "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwtkeyfile server.key --username "${{ secrets.SF_CICD_USERNAME }}" --instanceurl https://login.salesforce.com
-      #Validate source code against the org 
-      - name: Validae Source Code Against Salesforce ORG
-        run: |
-            sf project deploy validate -o "${{ secrets.SF_CICD_USERNAME }}" --source-dir force-app
-        # sf deploy functions -o "${{ secrets.SF_CICD_USERNAME }}" --branch main_release
-        #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
-      - name: Deploy code 
-        run: |
-            sf project deploy quick --use-most-recent --target-org my-hub-org
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       #Checkout the Source cod from the latest commit
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       #We need to install NPM so that we can install SFDX CLI tools
+#       - name: Install NPM
+#         run: |
+#             npm install
+#       #Install the SFDX CLI using npm command
+#       - name: Install the SFDX CLI
+#         run: |
+#             npm install @salesforce/cli --global
+#         # npm install sfdx-cli --global
+#         # sfdx force --help
+#       - name: sf version
+#         run: |
+#             sf --version
+#       # We need to use a key value stored as GitHub secret and 
+#       # create a .key file since 'sf org login jwt' command expects a path 
+#       # to .key file as a parameter
+#       - name: Create server key file
+#         run: |
+#             touch server.key
+#             echo -e "${{ secrets.SF_CICD_SERVERKEY }}" >> server.key
+#       #Authenticate Salesforce ORG
+#       - name: Authenticate Salesforce ORG
+#         run: |
+#             sf org login jwt --client-id "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwt-key-file server.key --username "${{ secrets.SF_CICD_USERNAME }}" --alias my-hub-org 
+#         # sfdx force:auth:jwt:grant --clientid "${{ secrets.SF_CICD_CONSUMERKEY }}" --jwtkeyfile server.key --username "${{ secrets.SF_CICD_USERNAME }}" --instanceurl https://login.salesforce.com
+#       #Validate source code against the org 
+#       - name: Validae Source Code Against Salesforce ORG
+#         run: |
+#             sf project deploy validate -o "${{ secrets.SF_CICD_USERNAME }}" --source-dir force-app
+#         # sf deploy functions -o "${{ secrets.SF_CICD_USERNAME }}" --branch main_release
+#         #   sfdx force:source:deploy -p force-app -c -u "${{ secrets.SF_CICD_USERNAME }}"
+#       - name: Deploy code 
+#         run: |
+#             sf project deploy quick --use-most-recent --target-org my-hub-org
 
   # get_runner:
   #   if: ${{ always()}}
