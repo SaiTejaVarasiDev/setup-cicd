@@ -2,8 +2,10 @@ name: Push code from local repository to initial branch
 run-name: ${{ github.actor }} is performing the worflow 🚀
 on:
   pull_request:
+    types:
+      - opened
     branches:
-      - main_release
+      - production
   
 jobs:
   build:
