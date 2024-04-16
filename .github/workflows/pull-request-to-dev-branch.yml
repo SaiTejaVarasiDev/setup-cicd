@@ -2,6 +2,8 @@ name: Pull request from a branch to production
 run-name: ${{ github.actor }} is performing a pull request to Production branch
 on:
   pull_request:
+    types:
+      - closed
     branches:
       - production
   
@@ -15,7 +17,7 @@ jobs:
           fetch-depth: 0
       - name: status
         run: |
-          echo "${{ github.event.pull_request.merged }}"
+          echo "${{ !github.event.pull_request.merged }}"
       #We need to install NPM so that we can install SFDX CLI tools
       - name: Install NPM
         run: |
@@ -45,6 +47,7 @@ jobs:
       - name: Validae Source Code Against Salesforce ORG
         run: |
             sf project deploy validate -o "${{ secrets.SF_CICD_USERNAME }}" --source-dir force-app
-      # - name: Deploy code 
-      #   run: |
-      #       sf project deploy quick --use-most-recent --target-org my-hub-org
+      - name: Deploy code 
+        if: ${{ github.event.pull_request.merged }}
+        run: |
+            sf project deploy quick --use-most-recent --target-org my-hub-org
