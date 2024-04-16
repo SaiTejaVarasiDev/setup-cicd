@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is performing the worflow 🚀
 on:
   pull_request:
     branches:
-      - production
+      - main_release
   
 jobs:
   build:
