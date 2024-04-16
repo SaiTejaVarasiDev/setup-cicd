@@ -1,5 +1,5 @@
 name: Push code from local repository to initial branch
-run-name: ${{ github.actor }} is performing the worflow 🚀
+run-name: ${{ github.actor }} has pushed code to main_release branch🚀
 on:
   push:
     branches:
