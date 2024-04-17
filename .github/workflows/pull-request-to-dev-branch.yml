@@ -10,14 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       # Checkout the Source cod from the latest commit
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: status
-        run: |
-          echo "${{ !github.event.pull_request.merged }}"
       #We need to install NPM so that we can install SFDX CLI tools
       - name: Install NPM
         run: |

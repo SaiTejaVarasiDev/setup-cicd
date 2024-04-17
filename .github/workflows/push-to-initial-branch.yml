@@ -1,4 +1,4 @@
-name: Push code from local repository to initial branch
+name: Push code from local repository to main_release branch
 run-name: ${{ github.actor }} has pushed code to main_release branch🚀
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: developer
     steps:
       # Checkout the Source cod from the latest commit
       - uses: actions/checkout@v3
@@ -42,6 +43,3 @@ jobs:
       - name: Validae Source Code Against Salesforce ORG
         run: |
             sf project deploy validate -o "${{ secrets.SF_CICD_USERNAME }}" --source-dir force-app
-    #   - name: Deploy code 
-    #     run: |
-    #         sf project deploy quick --use-most-recent --target-org my-hub-org
