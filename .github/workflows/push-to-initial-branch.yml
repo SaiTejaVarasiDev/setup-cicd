@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: developer
+    environment: production
     steps:
       # Checkout the Source cod from the latest commit
       - uses: actions/checkout@v3
